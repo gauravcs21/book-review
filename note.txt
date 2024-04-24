@@ -1,0 +1,5 @@
+app.get('/search', async (req, res) => {
+  const { name } = req.query;
+  const products = await Product.find({ name: { $regex: new RegExp(name), $options: 'i' } });
+  res.json(products);
+});
