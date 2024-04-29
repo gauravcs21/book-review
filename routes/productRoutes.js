@@ -7,6 +7,23 @@ const {isLoggedIn} = require('../middleware/middleware.js')
 router.get("/", (req, res) => {
     res.redirect('/product');
   });
+router.get("/products/search", async (req, res) => {
+    try {
+        const query = req.query.q;
+        const singleProduct = await Product.find({
+            $or: [
+                { productName: { $regex: new RegExp(query, "i") } },
+                
+            ]
+        });
+       
+        res.render("products/result", { singleProduct }); // Render singleproduct.ejs with search results
+    } catch (error) {
+        console.error("Error searching products:", error);
+        res.status(500).json({ error: "An error occurred while searching products" });
+    }
+});
+
 
 router.get("/product/new", (req, res) => {
     res.render("products/addProduct");
