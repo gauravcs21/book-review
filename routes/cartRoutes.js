@@ -2,9 +2,9 @@ const express = require('express');
 const router = express.Router();
 const Product = require('../model/productModel.js');
 const User = require('../model/userModel.js');
-// const isLoggedIn = require('../middleware/middleware.js');
+const {isLoggedIn} = require('../middleware/middleware.js');
 
-router.post("/product/:id/cart",async(req,res)=>{
+router.post("/product/:id/cart",isLoggedIn,async(req,res)=>{
     const {id} = req.params;
     const product = await Product.findById(id);
     const user=req.user;
@@ -13,7 +13,7 @@ router.post("/product/:id/cart",async(req,res)=>{
     res.redirect("/product")
 
 })
-router.get("/cart", async(req, res)=>{
+router.get("/cart", isLoggedIn,async(req, res)=>{
     const user = await User.findById(req.user._id).populate("cart");
     res.render("products/cart", {user});
 })
