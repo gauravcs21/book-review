@@ -10,33 +10,41 @@
           <a class="nav-link active" aria-current="page" href="#">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/product">books</a>
+          <a class="nav-link" href="/product">Books</a>
         </li>
-       
-          <li class="nav-item">
-            <a href="/product/new" class="nav-link ">create new</a>
-          </li>
-       
+        <li class="nav-item">
+          <a href="/product/new" class="nav-link">Create New</a>
+        </li>
+        <li class="nav-item">
+          <a href="/cart" class="nav-link">My Cart</a>
+        </li>
       </ul>
+      
+      <!-- Search form -->
+      <form class="d-flex" action="/products/search" method="GET">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="q">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-      <% if(currUser){ %>
-          <li class="nav-item">
-            <a class="nav-link"><%= currUser.username %></a>
-          </li>
-          <li class="nav-item">
-            <form action="/logout" method="post">
-              <button type="submit" class="nav-link ">Logout</button>
-            </form>
-          </li>
-        <% }else{ %>
-            <li class="nav-item">
-              <a class="nav-link" href="/signup">signup</a>
-            </li>
-            <li class="nav-item">
-              <a href="/login" class="nav-link ">login</a>
-            </li>
-          <% } %>
-        </ul>
+        <% if(currUser) { %>
+        <li class="nav-item">
+          <a class="nav-link"><%= currUser.username %></a>
+        </li>
+        <li class="nav-item">
+          <form action="/logout" method="post">
+            <button type="submit" class="nav-link">Logout</button>
+          </form>
+        </li>
+        <% } else { %>
+        <li class="nav-item">
+          <a class="nav-link" href="/signup">Signup</a>
+        </li>
+        <li class="nav-item">
+          <a href="/login" class="nav-link">Login</a>
+        </li>
+        <% } %>
+      </ul>
     </div>
   </div>
 </nav>
